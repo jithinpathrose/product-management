@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class CurrentAccount extends Product {
 
+    public CurrentAccount(String productName, String productDescription) {
+        super(productName, productDescription);
+    }
 }

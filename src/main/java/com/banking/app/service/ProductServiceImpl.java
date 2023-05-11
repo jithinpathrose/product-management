@@ -6,7 +6,12 @@ import com.banking.app.repo.ProductRepo;
 import com.banking.app.rule.ProductTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static org.h2.util.StringUtils.isNullOrEmpty;
 
 @Service
@@ -15,10 +20,16 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductRepo productRepo;
 
+    @Autowired
+    private RuleEngineService ruleEngineService;
+
     @Override
     public List<Product> findMyProducts(CustomerInfo customerInfo) {
         validateCustomer(customerInfo);
-        return null;
+        List<Product> result = ruleEngineService.executeRules(customerInfo).stream().map(action -> productRepo.get(action))
+                .filter(product -> null != product).collect(Collectors.toList());
+
+        return result;
     }
 
     @Override

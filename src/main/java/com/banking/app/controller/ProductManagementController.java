@@ -6,29 +6,29 @@ import com.banking.app.dto.Product;
 import com.banking.app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RestController("/product")
+@RequestMapping("/product")
 public class ProductManagementController {
 
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/myProducts")
-    public List<Product> findMyProduct(@RequestBody CustomerInfo customerInfo){
-        return productService.findMyProducts(customerInfo);
+    @GetMapping(value = "/myProducts",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Product>> findMyProduct(@RequestParam Double income,
+                                                       @RequestParam Integer age,
+                                                       @RequestParam boolean isStudent){
+        return ResponseEntity.ok(productService.findMyProducts(new CustomerInfo(income, age, isStudent)));
     }
 
     @PostMapping("/addProduct")
-    public HttpStatus addNewProduct(@RequestBody Product product){
+    public void addNewProduct(@RequestBody Product product){
         productService.addProduct(product);
-        return HttpStatus.CREATED;
     }
 }

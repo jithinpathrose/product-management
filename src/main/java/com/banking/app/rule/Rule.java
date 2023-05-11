@@ -1,10 +1,13 @@
 package com.banking.app.rule;
 
+import com.banking.app.dto.CustomerInfo;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.util.Map;
 
@@ -17,14 +20,20 @@ public class Rule {
 
     // getters and setters
 
-    public boolean evaluateCondition(Map<String, Object> data) {
+    public boolean evaluateCondition(CustomerInfo data) {
         ExpressionParser parser = new SpelExpressionParser();
         Expression expression = parser.parseExpression(condition);
-        return expression.getValue(data, Boolean.class);
+        StandardEvaluationContext context = new StandardEvaluationContext(data);
+        try {
+            return expression.getValue(context, Boolean.class);
+        }catch(Exception e){
+            throw new RuntimeException("Rule execution failed. Please evaluate the rule : "+ condition);
+        }
     }
 
-    public void performAction() {
+    public String performAction() {
         // Perform the action based on the rule
         System.out.println("Performing action: " + action);
+        return action;
     }
 }

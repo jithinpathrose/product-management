@@ -1,8 +1,10 @@
 package com.banking.app.service;
 
+import com.banking.app.dto.CustomerInfo;
 import com.banking.app.rule.Rule;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +17,13 @@ public class RuleEngineService {
         this.rules = rules;
     }
 
-    public void executeRules(Map<String, Object> data) {
+    public List<String> executeRules(CustomerInfo data) {
+        List<String> actions = new ArrayList<>();
         for (Rule rule : rules) {
             if (rule.evaluateCondition(data)) {
-                rule.performAction();
+                actions.add(rule.performAction());
             }
         }
+        return actions;
     }
 }

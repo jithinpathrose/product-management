@@ -3,9 +3,9 @@ package com.banking.app.config;
 import com.banking.app.rule.Rule;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Configuration
 public class RuleEngineConfiguration {
 
     @Bean
@@ -36,7 +37,7 @@ public class RuleEngineConfiguration {
                 }
 
                 Rule rule = new Rule();
-                rule.setCondition(row[0]); // rule
+                rule.setCondition(convertToSpEL(row[0])); // rule
                 rule.setAction(row[1]); // product
                 ruleList.add(rule);
             }
@@ -46,4 +47,34 @@ public class RuleEngineConfiguration {
 
         return ruleList;
     }
+
+    public static String convertToSpEL(String expression) {
+        StringBuilder convertedExpression = new StringBuilder();
+        String[] tokens = expression.split("\\s+");
+        boolean lhs =false;
+
+        for (String token : tokens) {
+            if (token.matches("[A-Za-z]+")) {
+
+                convertedExpression.append(handleTypes(token));
+
+            } else {
+                convertedExpression.append(token);
+
+                if(token.matches("&")){
+                    convertedExpression.append(token);
+                }
+            }
+
+            convertedExpression.append(" ");
+        }
+        return convertedExpression.toString();
+    }
+
+    private static String handleTypes(String token) {
+        String booleanType = token!=null && token.equals("Yes")? "true" : token;
+        booleanType = booleanType.equals("No")? "false" : booleanType;
+        return booleanType;
+    }
 }
+
