@@ -10,10 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Base64;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,6 +35,7 @@ public class ApplicationTest {
 
 
     @Test
+    @WithMockUser(username = "username", password = "password", roles = "USER")
     public void testGetProductsWithNoProductsAdded() throws Exception {
         CustomerInfo customerInfo = new CustomerInfo(30000.0, 28, false);
         MvcResult result = mockMvc.perform(get("/product/myProducts").param("income", String.valueOf(30000.0)).
@@ -42,13 +46,16 @@ public class ApplicationTest {
     }
 
     @Test
+    @WithMockUser(username = "username", password = "password", roles = "USER")
     public void testAddProduct() throws Exception {
         String requestBody = objectMapper.writeValueAsString(new Product("1","2"));;
-        mockMvc.perform(post("/product/addProduct").content(requestBody).contentType("application/json"))
+        mockMvc.perform(post("/product/addProduct").
+                                content(requestBody).contentType("application/json"))
                 .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "username", password = "password", roles = "USER")
     public void testGetProducts() throws Exception {
 
         String requestBody = objectMapper.writeValueAsString(new Product("Credit Card","2"));;
@@ -62,4 +69,5 @@ public class ApplicationTest {
                 .andDo(print()).andExpect(status().isOk()).andReturn();
         Assert.assertNotEquals(result.getResponse().getContentAsString().length(), 0); // no products added
     }
+
 }

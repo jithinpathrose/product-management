@@ -28,8 +28,9 @@ public class ProductManagementController {
     }
 
     @PostMapping("/addProduct")
-    public void addNewProduct(@RequestBody Product product){
+    public ResponseEntity<Product> addNewProduct(@RequestBody Product product){
         productService.addProduct(product);
+        return ResponseEntity.ok(product);
     }
 
     @GetMapping(value = "/allProducts",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
