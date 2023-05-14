@@ -31,4 +31,9 @@ public class ProductManagementController {
     public void addNewProduct(@RequestBody Product product){
         productService.addProduct(product);
     }
+
+    @GetMapping(value = "/allProducts",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Product>> findAllProduct(){
+        return ResponseEntity.ok(productService.findMyProducts());
+    }
 }

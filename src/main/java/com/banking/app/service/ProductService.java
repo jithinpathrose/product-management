@@ -9,5 +9,7 @@ public interface ProductService {
 
     List<Product> findMyProducts(CustomerInfo customerInfo);
 
+    List<Product> findMyProducts();
+
     void addProduct(Product product);
 }

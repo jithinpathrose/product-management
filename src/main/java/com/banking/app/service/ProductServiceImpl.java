@@ -35,7 +35,12 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void addProduct(Product product) {
         validateProduct(product);
+        System.out.println("Adding product");
         productRepo.addProduct(product);
+    }
+
+    public List<Product> findMyProducts(){
+        return productRepo.getAll();
     }
 
     private void validateProduct(Product product) {
