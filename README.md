@@ -32,4 +32,8 @@ Tests are available in src/test/java
 
 No logger implemented
 
+# Security
+
+Username, password is hardcoded in SecurityConfig.
+
 
