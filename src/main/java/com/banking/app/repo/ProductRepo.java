@@ -1,6 +1,7 @@
 package com.banking.app.repo;
 
 import com.banking.app.dto.Product;
+import com.banking.app.logger.Console;
 import com.banking.app.rule.Rule;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,7 @@ public class ProductRepo {
         if(status){
             repo.put(product.getProductName().trim(), product);
         } else{
+            Console.logWarn("Product Already Present");
             throw new RuntimeException("Product Already Present");
         }
     }
