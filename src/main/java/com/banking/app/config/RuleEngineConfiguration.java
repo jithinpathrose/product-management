@@ -39,6 +39,7 @@ public class RuleEngineConfiguration {
                 Rule rule = new Rule();
                 rule.setCondition(convertToSpEL(row[0])); // rule
                 rule.setAction(row[1]); // product
+                rule.setFreeText(row[2]);
                 ruleList.add(rule);
             }
         } catch (IOException | CsvException e) {

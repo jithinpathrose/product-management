@@ -18,6 +18,8 @@ public class Rule {
     private String condition;
     private String action;
 
+    private String freeText;
+
     // getters and setters
 
     public boolean evaluateCondition(CustomerInfo data) {

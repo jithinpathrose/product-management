@@ -1,9 +1,9 @@
-Rules,Product
-Income > 0 & Age > 17,Current Account
-Income > 40000 & Age > 17,Current Account Plus
-Age < 18,Junior Saver Account
-Student = Yes & Age > 17,Student Account
-Age >= 65,Senior Account
-Income < 12001 & Age > 17,Debit Card
-Income > 12000 & Age > 17,Credit Card
-Income > 40000 & Age > 17,Gold Credit Card
+Rules,Product,Description
+Income > 0 & Age > 17,Current Account,It is a non-interest bearing bank account. It needs a higher minimum balance to be maintained as compared to the savings account. Penalty is charged if minimum balance is not maintained in the current account. It charges interest on the short-term funds borrowed from the bank
+Income > 40000 & Age > 17,Current Account Plus,Free 50 Demand Drafts & 50 Pay Orders per month payable at your Bank branch locations. 300 free at-par cheque leaves per month. Other services like Trade & Forex, CMS, POS, Payment Gateway and Doorstep Banking. Collect customer payments using Android DIGI POS machine with ZERO monthly rental.
+Age < 18,Junior Saver Account,An account for parents or guardians of children aged 12 years and under. With no transaction or monthly account fees, it provides a great opportunity to save for your child's future and teach them practical money management skills. Funds can be accessed by internet banking, the App or in branch.
+Student = Yes & Age > 17,Student Account,Conducts assessment of student needs and proactively engages students in conversation and financial planning related to their college experience; facilitates set up of payment plans for current student accounts.
+Age >= 65,Senior Account,Senior citizen account holders get preferential service, higher returns on specific investments such as Fixed Deposits (FDs) and other value-added benefits from the bank. Plus, of course, there are additional tax benefits from the government.
+Income < 12001 & Age > 17,Debit Card,A debit card is a payment card that deducts money directly from a consumer's checking account when it is used. Also called “check cards” or "bank cards," they can be used to buy goods or services; or to get cash from an automated teller machine or a merchant who'll let you add an extra amount onto a purchase.
+Income > 12000 & Age > 17,Credit Card,A credit card is a thin rectangular piece of plastic or metal issued by a bank or financial services company that allows cardholders to borrow funds with which to pay for goods and services with merchants that accept cards for payment.
+Income > 40000 & Age > 17,Gold Credit Card,A gold credit card is a rewards card that comes with more perks, higher credit limits, and a higher annual fee than a standard credit card.

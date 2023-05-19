@@ -58,7 +58,7 @@ public class ApplicationTest {
     @WithMockUser(username = "username", password = "password", roles = "USER")
     public void testGetProducts() throws Exception {
 
-        String requestBody = objectMapper.writeValueAsString(new Product("Credit Card","2"));;
+        String requestBody = objectMapper.writeValueAsString(new Product("Credit Card1","2"));;
         mockMvc.perform(post("/product/addProduct").content(requestBody).contentType("application/json"))
                 .andDo(print()).andExpect(status().isOk());
 

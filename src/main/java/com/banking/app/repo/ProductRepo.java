@@ -1,6 +1,7 @@
 package com.banking.app.repo;
 
 import com.banking.app.dto.Product;
+import com.banking.app.rule.Rule;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,8 +14,11 @@ public class ProductRepo {
 
     private Map<String, Product> repo;
 
-    ProductRepo(){
+    ProductRepo(List<Rule> rules){
         repo = new HashMap<>();
+        rules.stream().forEach(rule -> {
+            repo.put(rule.getAction(),new Product(rule.getAction(), rule.getFreeText()));
+        });
     }
 
     public void addProduct(Product product){
